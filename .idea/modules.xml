@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KanjiExerciser.iml" filepath="$PROJECT_DIR$/KanjiExerciser.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mvpboilerplate/mvpboilerplate.iml" filepath="$PROJECT_DIR$/mvpboilerplate/mvpboilerplate.iml" />
     </modules>
   </component>
 </project>

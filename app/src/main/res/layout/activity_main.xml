@@ -8,12 +8,29 @@
 
    <ImageView
        android:id="@+id/svg_kanji_image"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
+       android:layout_marginTop="50dp"
+       android:layout_centerHorizontal="true"
+       android:layout_width="250dp"
+       android:layout_height="250dp"
        />
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:id="@+id/rect"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"/>-->
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/kanji_to_render_layout"
+       android:layout_below="@id/svg_kanji_image"
+       android:layout_width="match_parent"
+       android:layout_margin="16dp"
+       android:layout_height="56dp">
+      <EditText
+          android:maxLength="1"
+          android:id="@+id/kanji_to_render"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Enter a single kanji"/>
+   </android.support.design.widget.TextInputLayout>
+   <Button
+       android:id="@+id/render_button"
+       android:layout_below="@id/kanji_to_render_layout"
+       android:layout_width="match_parent"
+       android:layout_height="56dp"
+       android:text="Render"/>
 </RelativeLayout>

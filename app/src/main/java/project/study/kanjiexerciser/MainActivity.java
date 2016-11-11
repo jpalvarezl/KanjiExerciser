@@ -10,6 +10,11 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.LinearLayout;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGBuilder;
+
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,27 +22,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        drawRectangle();
+        try {
+            SVG svg = new SVGBuilder().readFromAsset(getAssets(), "dasd.svg").build();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-//    private void drawRectangle() {
-//        Paint paint = new Paint();
-//        paint.setColor(Color.parseColor("#CD5C5C"));
-//
-//        DisplayMetrics metrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//
-//        int width = Math.round(metrics.widthPixels);
-//        int height = width;
-//
-//        Bitmap bg = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(bg);
-//        canvas.drawRect(0, 0, width, height, paint);
-//        LinearLayout ll = (LinearLayout) findViewById(R.id.rect);
-//        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-//            ll.setBackgroundDrawable(new BitmapDrawable(getApplicationContext().getResources(), bg));
-//        } else {
-//            ll.setBackground(new BitmapDrawable(getApplicationContext().getResources(), bg));
-//        }
-//    }
 }
