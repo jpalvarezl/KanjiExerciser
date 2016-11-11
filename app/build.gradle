@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
@@ -18,15 +19,21 @@ android {
         }
     }
 }
-
+def AndroidSupVer = '24.2.1'
+def AAVersion = '4.1.0'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.github.japgolly.android:svg-android:2.0.6'
-    compile 'com.android.support:design:24.2.0'
     testCompile 'junit:junit:4.12'
+
+    compile 'com.github.japgolly.android:svg-android:2.0.6'
+    compile "com.android.support:appcompat-v7:$AndroidSupVer"
+    compile "com.android.support:design:$AndroidSupVer"
+
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+
     compile project(':mvpboilerplate')
 }
