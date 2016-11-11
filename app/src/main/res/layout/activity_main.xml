@@ -4,7 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.study.kanjiexerciser.MainActivity">
+    tools:context="project.study.kanjiexerciser.main.MainActivity">
 
    <ImageView
        android:id="@+id/svg_kanji_image"
@@ -21,7 +21,6 @@
        android:layout_margin="16dp"
        android:layout_height="56dp">
       <EditText
-          android:maxLength="1"
           android:id="@+id/kanji_to_render"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -31,6 +30,7 @@
        android:id="@+id/render_button"
        android:layout_below="@id/kanji_to_render_layout"
        android:layout_width="match_parent"
+       android:layout_margin="16dp"
        android:layout_height="56dp"
        android:text="Render"/>
 </RelativeLayout>

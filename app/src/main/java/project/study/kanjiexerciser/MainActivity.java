@@ -1,31 +1,42 @@
 package project.study.kanjiexerciser;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.widget.LinearLayout;
+import android.graphics.drawable.Drawable;
+import android.widget.EditText;
+import android.widget.ImageView;
 
-import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVGBuilder;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
-import java.io.IOException;
+import refactor.clean.mvpboilerplate.BaseMVPActivity;
 
-public class MainActivity extends AppCompatActivity {
+@EActivity(R.layout.activity_main)
+public class MainActivity extends BaseMVPActivity<MainActivityPresenter> {
+    @ViewById(R.id.svg_kanji_image)
+    ImageView kanjiImageView;
+
+    @ViewById(R.id.kanji_to_render)
+    EditText character;
+
+    @Click(R.id.render_button)
+    void onRenderClick(){
+        presenter.onRenderClick();
+    }
+
+    String getCharacter(){
+        return character.getText().toString();
+    }
+
+    void setCharacter(String newCharacter){
+        character.setText(newCharacter);
+    }
+
+    void setKanjiImage(Drawable kanjiImageDrawable){
+        kanjiImageView.setImageDrawable(kanjiImageDrawable);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        try {
-            SVG svg = new SVGBuilder().readFromAsset(getAssets(), "dasd.svg").build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public MainActivityPresenter createPresenter() {
+        return new MainActivityPresenter();
     }
 }
