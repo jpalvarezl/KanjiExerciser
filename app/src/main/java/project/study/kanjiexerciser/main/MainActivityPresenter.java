@@ -1,4 +1,4 @@
-package project.study.kanjiexerciser;
+package project.study.kanjiexerciser.main;
 
 import android.text.TextUtils;
 
@@ -6,10 +6,13 @@ import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGBuilder;
 
 import java.io.IOException;
+import java.util.List;
 
+import project.study.kanjiexerciser.utils.KanjivgParser;
 import refactor.clean.mvpboilerplate.BaseMVPPresenter;
 
 public class MainActivityPresenter extends BaseMVPPresenter<MainActivity_>{
+
     public void onRenderClick() {
         String character = view.getCharacter();
         if(!TextUtils.isEmpty(character)) {
@@ -31,5 +34,11 @@ public class MainActivityPresenter extends BaseMVPPresenter<MainActivity_>{
         } finally {
             return svg;
         }
+    }
+
+    public void initActivity() {
+        KanjivgParser dasd = KanjivgParser.getInstance();
+        List kanjiList = dasd.getKanjiList();
+        kanjiList.size();
     }
 }
