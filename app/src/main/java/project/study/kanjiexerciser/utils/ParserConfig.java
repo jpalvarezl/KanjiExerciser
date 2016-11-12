@@ -8,5 +8,7 @@ public class ParserConfig {
     public static String KANJI_ASSET_FILE_NAME;
 
     public static String KANJI_ASSET_DEFAULT_FILE_NAME  = "kanjivg.xml";
-    public static String KANJI_ASSET_FILE_NAME_TEST1 = "kanjivg-test1.xml";
+
+    //Test assets
+    public static String KANJI_ASSET_FILE_NAME_TEST1 = "test/kanjivg-test1.xml";
 }
