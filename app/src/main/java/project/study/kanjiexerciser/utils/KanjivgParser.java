@@ -15,6 +15,7 @@ import project.study.kanjiexerciser.model.Kanji;
 
 public class KanjivgParser {
 
+    private static final String KANJIVG_XML = ParserConfig.KANJI_ASSET_FILE_NAME;
     private static KanjivgParser mInstance;
 
     public List<Kanji> getKanjiList() {
@@ -26,11 +27,12 @@ public class KanjivgParser {
 
     private KanjivgParser(){
         try {
-            InputStream is = KanjiExerciserApplication
-                    .getInstance()
-                    .getApplicationContext()
-                    .getAssets()
-                    .open("kanjivg.xml");
+            InputStream is =
+                    KanjiExerciserApplication
+                            .getInstance()
+                            .getApplicationContext()
+                            .getAssets()
+                            .open(KANJIVG_XML);
 
             kanjiList = parse(is);
         } catch (Exception e){

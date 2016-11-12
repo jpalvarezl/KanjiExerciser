@@ -1,13 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+def AndroidSupVer = '24.2.1'
+def AAVersion = '4.1.0'
+def RoboelectricVer = '3.1.4'
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "project.study.kanjiexerciser"
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,14 +23,14 @@ android {
         }
     }
 }
-def AndroidSupVer = '24.2.1'
-def AAVersion = '4.1.0'
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:$RoboelectricVer"
 
     compile 'com.github.japgolly.android:svg-android:2.0.6'
     compile "com.android.support:appcompat-v7:$AndroidSupVer"
