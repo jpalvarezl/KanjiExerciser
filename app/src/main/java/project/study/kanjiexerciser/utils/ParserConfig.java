@@ -11,4 +11,5 @@ public class ParserConfig {
 
     //Test assets
     public static String KANJI_ASSET_FILE_NAME_TEST1 = "test/kanjivg-test1.xml";
+    public static String KANJI_ASSET_FILE_NAME_TEST2 = "test/kanjivg-test2.xml";
 }

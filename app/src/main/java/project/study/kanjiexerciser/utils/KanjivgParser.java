@@ -69,7 +69,6 @@ public class KanjivgParser {
                 continue;
             }
             String name = parser.getName();
-            // Starts by looking for the entry tag
             if (name.equals("kanji")) {
                 entries.add(readKanji(parser));
             } else {
@@ -106,10 +105,11 @@ public class KanjivgParser {
         List<Group> groups = new ArrayList<>();
         String groupId = parser.getAttributeValue(ns, "id");
 
-        while(parser.next() != XmlPullParser.END_TAG){
+        while(parser.next() != XmlPullParser.END_TAG || !parser.getName().equals("g")){
             if(parser.getEventType() != XmlPullParser.START_TAG)
                 continue;
             String name = parser.getName();
+
             if(name.equals("path"))
                 paths.add(readPath(parser));
             else if(name.equals("g"))
@@ -117,6 +117,8 @@ public class KanjivgParser {
             else
                 skip(parser);
         }
+        parser.require(XmlPullParser.END_TAG, ns, "g");
+
         return Group.builder()
                 .groupId(groupId)
                 .groups(groups.isEmpty() ? null : groups)
@@ -135,14 +137,6 @@ public class KanjivgParser {
                 .strokeNumber(strokeNumber)
                 .build();
     }
-//
-//    private String readAttribute(XmlPullParser parser, String tagName, String attributeName) throws IOException, XmlPullParserException {
-//        parser.require(XmlPullParser.START_TAG, ns, tagName);
-//        String attributeValue = parser.getAttributeValue(null, attributeName);
-//        // these are single tag, no closing tags
-//        //parser.require(XmlPullParser.END_TAG, ns, tagName);
-//        return attributeValue;
-//    }
 
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
