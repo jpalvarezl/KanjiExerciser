@@ -4,6 +4,8 @@ apply plugin: 'android-apt'
 def AndroidSupVer = '24.2.1'
 def AAVersion = '4.1.0'
 def RoboelectricVer = '3.1.4'
+def LombokVer = '1.12.6'
+
 
 android {
     compileSdkVersion 24
@@ -37,6 +39,9 @@ dependencies {
 
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+
+    provided "org.projectlombok:lombok:$LombokVer"
+    apt "org.projectlombok:lombok:$LombokVer"
 
     compile project(':mvpboilerplate')
 }

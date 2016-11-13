@@ -8,10 +8,12 @@ import org.robolectric.annotation.Config;
 
 import java.util.List;
 
+import project.study.kanjiexerciser.model.Kanji;
 import project.study.kanjiexerciser.utils.KanjivgParser;
 import project.study.kanjiexerciser.utils.ParserConfig;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -27,6 +29,15 @@ public class KanjivgParserUnitText {
 
     @Test
     public void load_singleKanji() throws Exception {
-        assertEquals(1, kanjiList.size());
+        Kanji kanji = (Kanji) kanjiList.get(0);
+
+        assertNotNull(kanji);
+        assertNotNull(kanji.getKanjiId());
+        assertEquals(kanji.getKanjiId(), "kvg:kanji_00021");
+
+        assertNotNull(kanji.getRootGroup());
+        assertEquals(kanji.getRootGroup().getGroupId(), "kvg:00021");
+
+//        assertEquals(kanji.getRootGroup().getPaths().size(), 2);
     }
 }

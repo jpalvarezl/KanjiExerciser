@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.study.kanjiexerciser.main.KanjiExerciserApplication;
+import project.study.kanjiexerciser.model.Group;
 import project.study.kanjiexerciser.model.Kanji;
+import project.study.kanjiexerciser.model.Path;
 
 public class KanjivgParser {
 
@@ -79,23 +81,68 @@ public class KanjivgParser {
 
     private Kanji readKanji(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "kanji");
-        String g = null;
-        String path = null;
+        Group g = null;
+        String kanjiId = parser.getAttributeValue(ns, "id");
         while (parser.next() != XmlPullParser.END_TAG) {
-            if (parser.getEventType() != XmlPullParser.START_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG)
                 continue;
-            }
+
             String name = parser.getName();
-            if (name.equals("g")) {
-                //g = readG(parser);//todo must do so recursively
-            } else if (name.equals("path")) {
-                //path = readPath(parser);//todo recursive
-            } else {
+            if (name.equals("g"))
+                g = readGroup(parser);
+            else
                 skip(parser);
-            }
         }
-        return new Kanji(g, path);
+        return Kanji
+                .builder()
+                .kanjiId(kanjiId)
+                .rootGroup(g)
+                .build();
     }
+
+    private Group readGroup(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, ns, "g");
+        List<Path> paths = new ArrayList<>();
+        List<Group> groups = new ArrayList<>();
+        String groupId = parser.getAttributeValue(ns, "id");
+
+        while(parser.next() != XmlPullParser.END_TAG){
+            if(parser.getEventType() != XmlPullParser.START_TAG)
+                continue;
+            String name = parser.getName();
+            if(name.equals("path"))
+                paths.add(readPath(parser));
+            else if(name.equals("g"))
+                groups.add(readGroup(parser));
+            else
+                skip(parser);
+        }
+        return Group.builder()
+                .groupId(groupId)
+                .groups(groups.isEmpty() ? null : groups)
+                .paths(paths.isEmpty() ? null : paths)
+                .build();
+    }
+
+    private Path readPath(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, ns, "path");
+        String pathId = parser.getAttributeValue(ns, "id");
+        int strokeNumber = Integer.valueOf(pathId.split("s")[1]);
+
+        return Path.builder()
+                .pathId(pathId)
+                .drawing(parser.getAttributeValue(ns, "d"))
+                .strokeNumber(strokeNumber)
+                .build();
+    }
+//
+//    private String readAttribute(XmlPullParser parser, String tagName, String attributeName) throws IOException, XmlPullParserException {
+//        parser.require(XmlPullParser.START_TAG, ns, tagName);
+//        String attributeValue = parser.getAttributeValue(null, attributeName);
+//        // these are single tag, no closing tags
+//        //parser.require(XmlPullParser.END_TAG, ns, tagName);
+//        return attributeValue;
+//    }
 
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
