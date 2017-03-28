@@ -17,7 +17,7 @@ import project.study.kanjiexerciser.model.Path;
 
 public class KanjivgParser {
 
-    private static final String KANJIVG_XML = ParserConfig.KANJI_ASSET_FILE_NAME;
+    private static final String KANJIVG_XML = ParserConfig.KANJI_ASSET_DEFAULT_FILE_NAME;
     private static KanjivgParser mInstance;
 
     public List<Kanji> getKanjiList() {
@@ -92,8 +92,7 @@ public class KanjivgParser {
             else
                 skip(parser);
         }
-        return Kanji
-                .builder()
+        return new Kanji.Builder()
                 .kanjiId(kanjiId)
                 .rootGroup(g)
                 .build();
@@ -119,7 +118,7 @@ public class KanjivgParser {
         }
         parser.require(XmlPullParser.END_TAG, ns, "g");
 
-        return Group.builder()
+        return new Group.Builder()
                 .groupId(groupId)
                 .groups(groups.isEmpty() ? null : groups)
                 .paths(paths.isEmpty() ? null : paths)
@@ -130,8 +129,7 @@ public class KanjivgParser {
         parser.require(XmlPullParser.START_TAG, ns, "path");
         String pathId = parser.getAttributeValue(ns, "id");
         int strokeNumber = Integer.valueOf(pathId.split("s")[1]);
-
-        return Path.builder()
+        return new Path.Builder()
                 .pathId(pathId)
                 .drawing(parser.getAttributeValue(ns, "d"))
                 .strokeNumber(strokeNumber)
